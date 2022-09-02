@@ -1,0 +1,7 @@
+---
+- name: Clone a github repository
+  git:
+    repo: https://github.com/AzuraCast/AzuraCast.git
+    dest: "{{root_path}}"
+    clone: yes       
+    update: yes

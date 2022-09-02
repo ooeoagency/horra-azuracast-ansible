@@ -3,7 +3,7 @@
   become: true
 
   vars:
-    util_base: "{{ playbook_dir | dirname }}"
+    util_base: "/var/azuracast/www/"
     www_base: "{{ util_base | dirname }}"
     app_base: "{{ www_base | dirname }}"
     tmp_base: "{{ app_base }}/www_tmp"
@@ -12,26 +12,35 @@
     dev_azuracast_user_password: "azuracast"
     dev_mysql_user_password: "azuracast"
 
+    # Define real values
+    root_path: "/var/azuracast/www"
+    prod_mysql_server: "terraform-20220818232432421500000001.cqe4wpemvjpj.eu-west-3.rds.amazonaws.com"
+    prod_mysql_user: "admin"
+    prod_mysql_user_password: "WTef463Cuw2V"
+    prod_mysql_database_name: "azuracast"
+
   environment:
     DEBIAN_FRONTEND: noninteractive
 
   roles:
     - init
+    - git-repo
     - azuracast-user
     - azuracast-config
     - azuracast-radio
     - supervisord
     - nginx
     - php
-    - redis
+    - redis #to microservice later
     - beanstalkd
     - sftpgo
-    - mariadb
+    # - mariadb
     - ufw
     - dbip
     - composer
     - services
-    - azuracast-db-install
+    - external-database
+    #- azuracast-db-install
     - azuracast-build
     - azuracast-setup
     - azuracast-cron

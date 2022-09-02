@@ -1,0 +1,20 @@
+- name: Set up environment file with rds informations
+  ini_file:
+    dest: "{{ www_base }}/env.ini"
+    section: "configuration"
+    option: "{{ azure_db_install_env_ini.option }}"
+    value: "{{ azure_db_install_env_ini.value }}"
+    mode: 0644
+  loop:
+    - option: 'MYSQL_HOST'
+      value: '{{prod_mysql_server}}'
+    - option: 'MYSQL_PORT'
+      value: '3306'
+    - option: 'MYSQL_USER'
+      value: '{{prod_mysql_user}}'
+    - option: 'MYSQL_DB'
+      value: '{{prod_mysql_database_name}}'
+    - option: 'MYSQL_PASSWORD'
+      value: "{{ prod_mysql_user_password }}"
+  loop_control:
+    loop_var: azure_db_install_env_ini

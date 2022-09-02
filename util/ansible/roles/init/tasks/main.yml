@@ -50,10 +50,12 @@
       - zip
       - unzip
       - zstd
+      - acl #fix problem with azuracast-buil->Pull Node Dependencies
 
 - name: Install Focal Packages (20.04)
   apt:
     name:
+      #- python2.7
       - software-properties-common
       - python3-pip
   when: ansible_distribution_release == 'focal'
